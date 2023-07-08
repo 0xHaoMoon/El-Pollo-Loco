@@ -3,7 +3,7 @@ class Character extends MovableObject{
     height = 350;
     width = 150;
     x = 0;
-    y = 80;
+    y = 150;
     speed = 2;
     IMAGES_WALKLING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -32,24 +32,30 @@ class Character extends MovableObject{
             super().loadImage('img/2_character_pepe/2_walk/W-21.png');
             this.loadImages(this.IMAGES_WALKLING);
             this.loadImages(this.IMAGES_JUMPING);
-            this.applyGravity()
+            this.applyGravity();
             this.animate();
     }
 
     animate(){
 
+
+
         setInterval(() => {
             this.walking_sound.pause()
             if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x){
-                this.x += this.speed;
+                this.moveRight();
                 this.otherDirection = false;
-                this.walking_sound.play()
+                this.walking_sound.play();
             }
 
             if(this.world.keyboard.LEFT && this.x > 0 ){
-                this.x -= this.speed;
+                this.moveLeft();
                 this.otherDirection = true;
-                this.walking_sound.play()
+                this.walking_sound.play();                                                                  
+            }
+
+            if(this.world.keyboard.UP && !this.IsAboveGround()){
+                this.jump();
             }
             this.world.camera_x = -this.x +100;
         },100/60);
@@ -58,15 +64,14 @@ class Character extends MovableObject{
 
             if(this.IsAboveGround()){
                 this.playAnimation(this.IMAGES_JUMPING);
-            }
+            } else{
+
             if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT ){
                 this.playAnimation(this.IMAGES_WALKLING);
             }
+        }
         }, 100);
     }
 
-    jump(){
-
-    }
 
 }
