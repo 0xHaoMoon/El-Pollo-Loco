@@ -70,7 +70,7 @@ class Character extends MovableObject{
                 this.playAnimation(this.IMAGES_WALKLING);
             }
         }
-        }, 100);
+        }, 80);
     }
 
 
